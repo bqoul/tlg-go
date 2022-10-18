@@ -5,8 +5,8 @@
 *.so
 *.dylib
 
-#ignoring temporary files
-tlg-go/main.go
+# Temporary files
+main.go
 
 # Test binary, built with `go test -c`
 *.test
