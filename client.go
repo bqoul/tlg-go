@@ -12,8 +12,8 @@ import (
 )
 
 type Bot struct {
-	token  string
-	events map[string][]func()
+	token   string
+	actions map[string][]func()
 }
 
 func NewBot(token string) (Bot, error) {
@@ -25,6 +25,22 @@ func NewBot(token string) (Bot, error) {
 	}
 
 	return bot, err
+}
+
+func (bot *Bot) emit(event string) {
+	if actions, ok := bot.actions[event]; ok {
+		for _, action := range actions {
+			action()
+		}
+	}
+}
+
+func (bot *Bot) On(event string, action func()) {
+	if actions, ok := bot.actions[event]; ok {
+		bot.actions[event] = append(actions, action)
+	} else {
+		bot.actions[event] = []func(){action}
+	}
 }
 
 func (bot Bot) GetMe() upd.GetMe {
