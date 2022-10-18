@@ -1,2 +1,3 @@
-# tlg-go
-framework for telegram bot development in golang
+# todo
+rewrite Connect() method logic
+fix typo in ctx/get-me.go (can read all group messages) 
