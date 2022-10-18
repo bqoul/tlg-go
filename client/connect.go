@@ -11,7 +11,7 @@ import (
 )
 
 func (bot Bot) Connect() {
-	offset := 0
+	offset := 1 // 1 here so bot wont respont to the last update twise
 
 	for {
 		resp, _ := http.Get(fmt.Sprintf("https://api.telegram.org/bot%s/getUpdates?offset=%v", bot.token, offset))
@@ -30,7 +30,7 @@ func (bot Bot) Connect() {
 					// if offset is not equals to update_id
 					if offset != values.Field(i).Interface().(int) {
 						// giving offset same value as update_id
-						offset = values.Field(i).Interface().(int)
+						offset += values.Field(i).Interface().(int)
 					} else {
 						// othervise incrementing offset by one
 						// to make sure that bot wont endlessly respond to he same update
