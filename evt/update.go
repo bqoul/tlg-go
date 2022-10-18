@@ -1,3 +1,4 @@
+// events for general updates we receive from telegram api
 package evt
 
 const (

@@ -1,6 +1,6 @@
 // this file is temporary
 // need it to easy test functionality
-
+// while the framework is in development
 package main
 
 import (

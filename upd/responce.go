@@ -5,6 +5,7 @@ type Responce struct {
 	Result []Update `json:"result"`
 }
 
+// using pointers for optional structs to check if value is nil in client/connect.go
 type Update struct {
 	UpdateId           int  `json:"update_id"`
 	Message            *any `json:"message"`

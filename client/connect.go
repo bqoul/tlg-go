@@ -29,14 +29,14 @@ func (bot Bot) Connect() {
 				if types.Field(i).Name == "UpdateId" {
 					// if offset is not equals to update_id
 					if offset != values.Field(i).Interface().(int) {
-						// giving offset same value as update_id
+						// giving offset the value of update_id + 1
 						offset += values.Field(i).Interface().(int)
 					} else {
 						// othervise incrementing offset by one
 						// to make sure that bot wont endlessly respond to he same update
 						offset++
 					}
-					continue
+					continue // skiping "update_id" iteration because we dont need to emit it as event
 				}
 
 				// checking for struct fileds that have information inside
