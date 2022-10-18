@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"reflect"
 
+	"github.com/bqoul/tlg-go/alias"
 	"github.com/bqoul/tlg-go/upd"
 )
 
@@ -14,9 +15,11 @@ func (bot Bot) Connect() {
 	offset := 1 // 1 here so bot wont respont to the last update twise
 
 	for {
-		resp, _ := http.Get(fmt.Sprintf("https://api.telegram.org/bot%s/getUpdates?offset=%v", bot.token, offset))
+		resp, err := http.Get(fmt.Sprintf("https://api.telegram.org/bot%s/getUpdates?offset=%v", bot.token, offset))
+		alias.Check(err)
 
-		body, _ := io.ReadAll(resp.Body)
+		body, err := io.ReadAll(resp.Body)
+		alias.Check(err)
 
 		var data upd.Responce
 		json.Unmarshal(body, &data)
@@ -33,7 +36,7 @@ func (bot Bot) Connect() {
 						offset += values.Field(i).Interface().(int)
 					} else {
 						// othervise incrementing offset by one
-						// to make sure that bot wont endlessly respond to he same update
+						// to make sure that bot wont endlessly respond to the same update
 						offset++
 					}
 					continue // skiping "update_id" iteration because we dont need to emit it as event
