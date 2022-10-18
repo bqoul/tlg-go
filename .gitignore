@@ -5,7 +5,7 @@
 *.so
 *.dylib
 
-#ignoring temporary
+#ignoring temporary files
 main.go
 
 # Test binary, built with `go test -c`
