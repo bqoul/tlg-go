@@ -1,3 +1,6 @@
+// this file is temporary
+// need it to easy test functionality
+
 package main
 
 import (
@@ -13,11 +16,11 @@ func main() {
 	bot, _ := client.NewBot(token)
 
 	bot.On(evt.Message, func() {
-		fmt.Println("got a message")
+		fmt.Println("message")
 	})
 
-	bot.On(evt.Message, func() {
-		fmt.Println("test")
+	bot.On(evt.EditedMessage, func() {
+		fmt.Println("edited message")
 	})
 
 	bot.Connect()
