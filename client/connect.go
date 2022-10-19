@@ -11,9 +11,9 @@ import (
 )
 
 func (bot Bot) Connect() {
-	var offset float64
+	var offset int
 	for {
-		resp, err := http.Get(fmt.Sprintf("https://api.telegram.org/bot%s/getUpdates?offset=%v", bot.token, int(offset)))
+		resp, err := http.Get(fmt.Sprintf("https://api.telegram.org/bot%s/getUpdates?offset=%v", bot.token, offset))
 		alias.Check(err)
 
 		body, err := io.ReadAll(resp.Body)
@@ -30,10 +30,16 @@ func (bot Bot) Connect() {
 		for key, value := range data.Result[0] {
 			// setting offset to only react on new updates
 			if key == "update_id" {
-				offset = value.(float64) + 1
+				offset = int(value.(float64)) + 1
 				continue
 			}
+			//emitting general events like message, channel post, callback query, etc
 			bot.emit(key)
+
+			//emitting additional events like text, location, dice, photo, etc
+			for key = range value.(map[string]interface{}) {
+				bot.emit(key)
+			}
 		}
 	}
 }
