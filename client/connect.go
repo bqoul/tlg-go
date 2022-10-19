@@ -23,25 +23,27 @@ func (bot Bot) Connect() {
 		var data upd.Responce
 		json.Unmarshal(body, &data)
 
-		for _, update := range data.Result {
-			values := reflect.ValueOf(update)
-			types := values.Type()
+		if len(data.Result) == 0 {
+			continue // skip iteration if no new updates received
+		}
 
-			for i := 0; i < values.NumField(); i++ {
-				if types.Field(i).Name == "UpdateId" {
-					if offset == values.Field(i).Interface().(int) {
-						offset++
-						continue
-					}
-					offset = values.Field(i).Interface().(int) + 1
-					continue // skiping "update_id" iteration because we dont need to emit it as event
-				}
+		values := reflect.ValueOf(data.Result[0])
+		types := values.Type()
 
-				// checking for struct fileds that have information inside
-				if values.Field(i).Interface().(*any) != nil {
-					// emitting event with the same name as the struct field
-					bot.emit(types.Field(i).Name)
+		for i := 0; i < values.NumField(); i++ {
+			if types.Field(i).Name == "UpdateId" {
+				if offset == values.Field(i).Interface().(int) {
+					offset++
+					continue
 				}
+				offset = values.Field(i).Interface().(int) + 1
+				continue // skiping "update_id" iteration because we dont need to emit it as event
+			}
+
+			// checking for struct fields that have information inside
+			if values.Field(i).Interface().(*any) != nil {
+				// emitting general event with the same name as the struct field
+				bot.emit(types.Field(i).Name)
 			}
 		}
 
