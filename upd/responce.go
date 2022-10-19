@@ -17,7 +17,7 @@ type Update struct {
 	CallbackQuery      *any `json:"callback_query"`
 	ShippingQuery      *any `json:"shipping_query"`
 	PreCheckoutQuery   *any `json:"pre_checkout_query"`
-	Poll               *any `json:"poll"`
+	PollStopped        *any `json:"poll"`
 	PollAnswer         *any `json:"poll_answer"`
 	MyChatMember       *any `json:"my_chat_member"`
 	ChatMember         *any `json:"chat_member"`

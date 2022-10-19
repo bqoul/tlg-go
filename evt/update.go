@@ -11,7 +11,7 @@ const (
 	CallbackQuery      string = "CallbackQuery"
 	ShippingQuery      string = "ShippingQuery"
 	PreCheckoutQuery   string = "PreCheckoutQuery"
-	Poll               string = "Poll"
+	PollStopped        string = "PollStopped"
 	PollAnswer         string = "PollAnswer"
 	MyChatMember       string = "MyChatMember"
 	ChatMember         string = "ChatMember"
