@@ -27,19 +27,6 @@ func (bot Bot) Connect() {
 			continue // skipping iteration if no new updates received
 		}
 
-		for key, value := range data.Result[0] {
-			// setting offset to only react on new updates
-			if key == "update_id" {
-				offset = int(value.(float64)) + 1
-				continue
-			}
-			//emitting general events like message, channel post, callback query, etc
-			bot.emit(key)
-
-			//emitting additional events like text, location, dice, photo, etc
-			for key = range value.(map[string]interface{}) {
-				bot.emit(key)
-			}
-		}
+		emitEvents(data.Result[0], &offset, &bot)
 	}
 }

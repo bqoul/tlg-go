@@ -2,6 +2,16 @@ package evt
 
 const (
 	TextMessage                   string = "text"
+	BotCommand                    string = "bot_command"
+	Mention                       string = "mention"
+	Hashtag                       string = "hashtag"
+	Cashtag                       string = "cashtag"
+	Url                           string = "url"
+	Email                         string = "email"
+	PhoneNumber                   string = "phone_number"
+	TextLink                      string = "text_link"
+	TextMention                   string = "text_mention"
+	CustomEmoji                   string = "custom_emoji"
 	ForwardMessage                string = "forward_date"
 	ReplyMessage                  string = "reply_to_message"
 	Animation                     string = "animaition"
