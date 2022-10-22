@@ -27,6 +27,6 @@ func (bot Bot) Connect() {
 			continue // skipping iteration if no new updates received
 		}
 
-		emitEvents(data.Result[0], &offset, &bot)
+		emitEvents(data.Result[0], &offset, bot)
 	}
 }

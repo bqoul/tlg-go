@@ -1,15 +1,12 @@
 package client
 
-import "errors"
-
-func NewBot(token string) (Bot, error) {
+func NewBot(token string) Bot {
 	bot := Bot{token, make(map[string][]func())}
 
-	// preventing user from passing the wrong token value with creating bot instance
-	var err error
+	// preventing user from passing the wrong token value when creating bot instance
 	if !bot.GetMe().Ok {
-		err = errors.New("tlg-go [ERROR] >>> incorrect token specified")
+		panic("incorrect token specified")
 	}
 
-	return bot, err
+	return bot
 }

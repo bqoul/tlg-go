@@ -1,6 +1,6 @@
 package client
 
-func (bot *Bot) emit(event string) {
+func (bot Bot) emit(event string) {
 	if actions, ok := bot.actions[event]; ok {
 		for _, action := range actions {
 			go action()

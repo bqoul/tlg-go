@@ -1,6 +1,6 @@
 package client
 
-func emitEvents(update map[string]interface{}, offset *int, bot *Bot) {
+func emitEvents(update map[string]interface{}, offset *int, bot Bot) {
 	for key, value := range update {
 		// setting offset to only react on new updates
 		if key == "update_id" {
